@@ -14,23 +14,21 @@
 
 <div class="container">
 
-    <!-- Lost / Found Toggle -->
+    <!-- Report type toggle -->
     <div class="type-toggle top-toggle">
         <button id="lostBtn" class="active" onclick="setType('Lost')">Report Lost</button>
         <button id="foundBtn" onclick="setType('Found')">Report Found</button>
     </div>
 
-    <!-- Report Form -->
+    <!-- Report form -->
     <div class="form-box">
         <h2>Report Item</h2>
         <form id="itemForm">
             <input type="hidden" id="type" value="Lost">
-
             <input type="text" id="itemName" placeholder="Item Name" required>
             <textarea id="description" placeholder="Description" required></textarea>
             <input type="text" id="itemLocation" placeholder="Location" required>
             <input type="text" id="contact" placeholder="Contact Number" required>
-
             <button type="submit" id="submitBtn" disabled>Submit Item</button>
         </form>
     </div>
