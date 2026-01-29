@@ -1,26 +1,23 @@
-// Load data from localStorage
 let items = JSON.parse(localStorage.getItem("items")) || [];
+let currentFilter = "All";
 
-// Switch Lost / Found mode
-function setType(selectedType) {
-    type.value = selectedType;
-
-    lostBtn.classList.remove("active");
-    foundBtn.classList.remove("active");
-
-    selectedType === "Lost" ? lostBtn.classList.add("active") : foundBtn.classList.add("active");
+// Toggle Lost / Found mode (form)
+function setType(typeSelected) {
+    type.value = typeSelected;
+    lostBtn.classList.toggle("active", typeSelected === "Lost");
+    foundBtn.classList.toggle("active", typeSelected === "Found");
 }
 
-// Enable submit only when all fields are filled
+// Enable submit only when form is filled
 const inputs = document.querySelectorAll("#itemName, #description, #itemLocation, #contact");
-inputs.forEach(input => input.addEventListener("input", checkFormFilled));
+inputs.forEach(i => i.addEventListener("input", checkFormFilled));
 
 function checkFormFilled() {
     submitBtn.disabled = !(itemName.value && description.value && itemLocation.value && contact.value);
     submitBtn.classList.toggle("active", !submitBtn.disabled);
 }
 
-// Handle form submission
+// Submit form
 itemForm.addEventListener("submit", function(e) {
     e.preventDefault();
 
@@ -42,16 +39,39 @@ itemForm.addEventListener("submit", function(e) {
 
     // Reset UI state
     setType("Lost");
-    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-    allFilter.classList.add("active");
-
-    searchBox.value = "";
-    clearBtn.style.display = "none";
+    setFilter("All", document.getElementById("allFilter"));
+    clearSearch();
 
     displayItems(items);
 });
 
-// Show items on screen
+// Filter buttons
+function setFilter(filterType, btn) {
+    currentFilter = filterType;
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    applySearchAndFilter();
+}
+
+// Search inside selected filter
+function handleSearch() {
+    applySearchAndFilter();
+}
+
+function applySearchAndFilter() {
+    let text = searchBox.value.toLowerCase();
+    let baseList = currentFilter === "All" ? items : items.filter(i => i.type === currentFilter);
+
+    let filtered = baseList.filter(i =>
+        i.name.toLowerCase().includes(text) ||
+        i.description.toLowerCase().includes(text) ||
+        i.location.toLowerCase().includes(text)
+    );
+
+    displayItems(filtered);
+}
+
+// Display items
 function displayItems(list) {
     if (list.length === 0) {
         result.innerHTML = "<p style='text-align:center;color:gray;'>No items found.</p>";
@@ -60,7 +80,6 @@ function displayItems(list) {
 
     result.innerHTML = list.map(item => `
         <div class="card ${item.type.toLowerCase()}">
-            <span class="tag ${item.type.toLowerCase()}">${item.type}</span>
             <h3>${item.name}</h3>
             <p>${item.description}</p>
             <p><b>Location:</b> ${item.location}</p>
@@ -71,34 +90,16 @@ function displayItems(list) {
     `).join("");
 }
 
-// Search items
-function searchItem() {
-    let text = searchBox.value.toLowerCase();
-    displayItems(items.filter(i =>
-        i.name.toLowerCase().includes(text) ||
-        i.description.toLowerCase().includes(text) ||
-        i.location.toLowerCase().includes(text)
-    ));
-}
-
-// Show / hide clear icon
-function toggleClearBtn() {
-    clearBtn.style.display = searchBox.value ? "block" : "none";
-}
-
 // Clear search
 function clearSearch() {
     searchBox.value = "";
     clearBtn.style.display = "none";
-    displayItems(items);
+    applySearchAndFilter();
 }
 
-// Filter by type
-function filterItems(type, btn) {
-    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    displayItems(type === "All" ? items : items.filter(i => i.type === type));
+// Show / hide clear button
+function toggleClearBtn() {
+    clearBtn.style.display = searchBox.value ? "block" : "none";
 }
 
 // Delete item
@@ -106,9 +107,9 @@ function deleteItem(id) {
     if (confirm("Are you sure you want to delete this item?")) {
         items = items.filter(i => i.id !== id);
         localStorage.setItem("items", JSON.stringify(items));
-        displayItems(items);
+        applySearchAndFilter();
     }
 }
 
-// Initial render
+// Initial load
 displayItems(items);
