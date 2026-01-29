@@ -1,17 +1,16 @@
-// Load items from localStorage
 let items = JSON.parse(localStorage.getItem("items")) || [];
 let currentFilter = "All";
 
-// Toggle Lost / Found for the form
+// Toggle Lost / Found for form
 function setType(selectedType) {
     type.value = selectedType;
     lostBtn.classList.toggle("active", selectedType === "Lost");
     foundBtn.classList.toggle("active", selectedType === "Found");
 }
 
-// Enable submit only when all fields are filled
+// Enable submit button when form is filled
 const inputs = document.querySelectorAll("#itemName, #description, #itemLocation, #contact");
-inputs.forEach(i => i.addEventListener("input", checkFormFilled));
+inputs.forEach(input => input.addEventListener("input", checkFormFilled));
 
 function checkFormFilled() {
     submitBtn.disabled = !(itemName.value && description.value && itemLocation.value && contact.value);
@@ -38,17 +37,18 @@ itemForm.addEventListener("submit", function(e) {
     this.reset();
     checkFormFilled();
 
-    // Reset UI to All after submit
-    setType("Lost");
-    setFilter("All", document.getElementById("allFilter"));
+    // Reset to All view
+    setFilter("All", document.getElementById("allBtn"));
     clearSearch();
 });
 
-// Set bottom filter (All / Lost / Found)
+// Set bottom filter
 function setFilter(filterType, btn) {
     currentFilter = filterType;
+
     document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
+
     applySearchAndFilter();
 }
 
@@ -57,7 +57,7 @@ function handleSearch() {
     applySearchAndFilter();
 }
 
-// Apply filter + search together
+// Apply filter + search
 function applySearchAndFilter() {
     let text = searchBox.value.toLowerCase();
 
@@ -88,14 +88,9 @@ function displayItems(list) {
             <p><b>Location:</b> ${item.location}</p>
             <p><b>Contact:</b> ${item.contact}</p>
             <p><small>${item.date}</small></p>
-            <button class="delete-btn" onclick="deleteItem(${item.id})">Delete</button>
+            <button onclick="deleteItem(${item.id})">Delete</button>
         </div>
     `).join("");
-}
-
-// Show / hide clear icon
-function toggleClearBtn() {
-    clearBtn.style.display = searchBox.value ? "block" : "none";
 }
 
 // Clear search
@@ -103,6 +98,11 @@ function clearSearch() {
     searchBox.value = "";
     clearBtn.style.display = "none";
     applySearchAndFilter();
+}
+
+// Show / hide clear button
+function toggleClearBtn() {
+    clearBtn.style.display = searchBox.value ? "block" : "none";
 }
 
 // Delete item
@@ -114,5 +114,5 @@ function deleteItem(id) {
     }
 }
 
-// Initial render
+// Initial load
 displayItems(items);
