@@ -1,14 +1,15 @@
+// Load items from localStorage
 let items = JSON.parse(localStorage.getItem("items")) || [];
 let currentFilter = "All";
 
-// Toggle Lost / Found mode (form)
-function setType(typeSelected) {
-    type.value = typeSelected;
-    lostBtn.classList.toggle("active", typeSelected === "Lost");
-    foundBtn.classList.toggle("active", typeSelected === "Found");
+// Toggle Lost / Found for the form
+function setType(selectedType) {
+    type.value = selectedType;
+    lostBtn.classList.toggle("active", selectedType === "Lost");
+    foundBtn.classList.toggle("active", selectedType === "Found");
 }
 
-// Enable submit only when form is filled
+// Enable submit only when all fields are filled
 const inputs = document.querySelectorAll("#itemName, #description, #itemLocation, #contact");
 inputs.forEach(i => i.addEventListener("input", checkFormFilled));
 
@@ -17,7 +18,7 @@ function checkFormFilled() {
     submitBtn.classList.toggle("active", !submitBtn.disabled);
 }
 
-// Submit form
+// Handle form submit
 itemForm.addEventListener("submit", function(e) {
     e.preventDefault();
 
@@ -37,15 +38,13 @@ itemForm.addEventListener("submit", function(e) {
     this.reset();
     checkFormFilled();
 
-    // Reset UI state
+    // Reset UI to All after submit
     setType("Lost");
     setFilter("All", document.getElementById("allFilter"));
     clearSearch();
-
-    displayItems(items);
 });
 
-// Filter buttons
+// Set bottom filter (All / Lost / Found)
 function setFilter(filterType, btn) {
     currentFilter = filterType;
     document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
@@ -53,25 +52,29 @@ function setFilter(filterType, btn) {
     applySearchAndFilter();
 }
 
-// Search inside selected filter
+// Search handler
 function handleSearch() {
     applySearchAndFilter();
 }
 
+// Apply filter + search together
 function applySearchAndFilter() {
     let text = searchBox.value.toLowerCase();
-    let baseList = currentFilter === "All" ? items : items.filter(i => i.type === currentFilter);
 
-    let filtered = baseList.filter(i =>
-        i.name.toLowerCase().includes(text) ||
-        i.description.toLowerCase().includes(text) ||
-        i.location.toLowerCase().includes(text)
+    let baseList = currentFilter === "All"
+        ? items
+        : items.filter(item => item.type === currentFilter);
+
+    let filtered = baseList.filter(item =>
+        item.name.toLowerCase().includes(text) ||
+        item.description.toLowerCase().includes(text) ||
+        item.location.toLowerCase().includes(text)
     );
 
     displayItems(filtered);
 }
 
-// Display items
+// Display cards
 function displayItems(list) {
     if (list.length === 0) {
         result.innerHTML = "<p style='text-align:center;color:gray;'>No items found.</p>";
@@ -90,6 +93,11 @@ function displayItems(list) {
     `).join("");
 }
 
+// Show / hide clear icon
+function toggleClearBtn() {
+    clearBtn.style.display = searchBox.value ? "block" : "none";
+}
+
 // Clear search
 function clearSearch() {
     searchBox.value = "";
@@ -97,19 +105,14 @@ function clearSearch() {
     applySearchAndFilter();
 }
 
-// Show / hide clear button
-function toggleClearBtn() {
-    clearBtn.style.display = searchBox.value ? "block" : "none";
-}
-
 // Delete item
 function deleteItem(id) {
     if (confirm("Are you sure you want to delete this item?")) {
-        items = items.filter(i => i.id !== id);
+        items = items.filter(item => item.id !== id);
         localStorage.setItem("items", JSON.stringify(items));
         applySearchAndFilter();
     }
 }
 
-// Initial load
+// Initial render
 displayItems(items);
