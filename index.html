@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>SST LOST & FOUND</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>SST LOST & FOUND</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -14,38 +14,48 @@
 
 <div class="container">
 
+    <!-- Lost / Found Toggle Buttons -->
     <div class="type-toggle top-toggle">
         <button id="lostBtn" class="active" onclick="setType('Lost')">Report Lost</button>
         <button id="foundBtn" onclick="setType('Found')">Report Found</button>
     </div>
 
+    <!-- Item Report Form -->
     <div class="form-box">
         <h2>Report Item</h2>
+
         <form id="itemForm">
             <input type="hidden" id="type" value="Lost">
+
             <input type="text" id="itemName" placeholder="Item Name" required>
             <textarea id="description" placeholder="Description" required></textarea>
             <input type="text" id="itemLocation" placeholder="Location" required>
             <input type="text" id="contact" placeholder="Contact Number" required>
+
             <button type="submit" id="submitBtn" disabled>Submit Item</button>
         </form>
     </div>
 
+    <!-- Filter Buttons -->
     <div class="filter-box">
-        <button class="filter-btn active" id="allBtn" onclick="setFilter('All', this)">All</button>
-        <button class="filter-btn" onclick="setFilter('Lost', this)">Lost</button>
-        <button class="filter-btn" onclick="setFilter('Found', this)">Found</button>
+        <button class="filter-btn active" id="allFilter" onclick="filterItems('All', this)">All</button>
+        <button class="filter-btn" onclick="filterItems('Lost', this)">Lost</button>
+        <button class="filter-btn" onclick="filterItems('Found', this)">Found</button>
     </div>
 
+    <!-- Search Bar -->
     <div class="search-box">
         <div class="search-wrapper">
             <input type="text" id="searchBox" placeholder="Search item..."
-                   onkeyup="handleSearch(); toggleClearBtn()">
-            <span class="clear-btn" id="clearBtn" onclick="clearSearch()">×</span>
+                   onkeyup="searchItem(); toggleClearBtn()">
+                   <!-- Clear Text Btn-->
+            <span class="clear-btn" id="clearBtn" onclick="clearSearch()">x</span>
         </div>
     </div>
 
+    <!-- Items Display Area -->
     <div class="items" id="result"></div>
+
 </div>
 
 <footer class="footer">
@@ -55,3 +65,4 @@
 <script src="script.js"></script>
 </body>
 </html>
+
