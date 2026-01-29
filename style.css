@@ -1,4 +1,3 @@
-/* Basic page styling */
 * { box-sizing: border-box; }
 
 body {
@@ -8,7 +7,6 @@ body {
     color: #333;
 }
 
-/* Header */
 .main-header {
     background: linear-gradient(90deg, #2563eb, #1d4ed8);
     color: white;
@@ -16,17 +14,15 @@ body {
     text-align: center;
 }
 
-/* Layout container */
 .container {
     max-width: 1000px;
     margin: auto;
     padding: 25px;
 }
 
-/* Toggle & filter buttons */
 .top-toggle, .filter-box {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     margin-bottom: 15px;
 }
 
@@ -38,6 +34,7 @@ body {
     border-radius: 20px;
     background: #e5e7eb;
     cursor: pointer;
+    transition: 0.2s;
 }
 
 .type-toggle button.active,
@@ -46,7 +43,6 @@ body {
     color: white;
 }
 
-/* Form card */
 .form-box {
     background: white;
     padding: 25px;
@@ -55,7 +51,6 @@ body {
     margin-bottom: 20px;
 }
 
-/* Inputs */
 input, textarea, button {
     width: 100%;
     padding: 12px;
@@ -64,7 +59,6 @@ input, textarea, button {
     border: 1px solid #d1d5db;
 }
 
-/* Submit button states */
 #submitBtn:disabled {
     background: #9ca3af;
     cursor: not-allowed;
@@ -75,9 +69,13 @@ input, textarea, button {
     color: white;
 }
 
-/* Search with clear icon */
-.search-wrapper { position: relative; }
-.search-wrapper input { padding-right: 35px; }
+.search-wrapper {
+    position: relative;
+}
+
+.search-wrapper input {
+    padding-right: 35px;
+}
 
 .clear-btn {
     position: absolute;
@@ -87,9 +85,9 @@ input, textarea, button {
     cursor: pointer;
     display: none;
     color: #9ca3af;
+    font-size: 18px;
 }
 
-/* Cards layout */
 .items {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -103,11 +101,9 @@ input, textarea, button {
     box-shadow: 0 6px 15px rgba(0,0,0,0.08);
 }
 
-/* Lost / Found colors */
 .lost { border-left: 6px solid #ef4444; }
 .found { border-left: 6px solid #22c55e; }
 
-/* Footer */
 .footer {
     text-align: center;
     padding: 15px;
