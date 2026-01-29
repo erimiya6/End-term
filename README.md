@@ -1,7 +1,7 @@
 
 # SST Lost & Found Web Application
 
-A clean and user-friendly Lost & Found management system built using core web technologies. This project allows users to report lost or found items, search through existing reports, and filter them easily. It is designed as a simple, practical, and easy-to-understand academic project that demonstrates fundamental web development concepts.
+A clean and user-friendly Lost & Found management system built using core web technologies. This project allows users to report lost or found items, search through existing reports, and filter them easily.
 
 ---
 
