@@ -7,7 +7,6 @@
 </head>
 <body>
 
-<!-- Header -->
 <header class="main-header">
     <h1>SST LOST & FOUND</h1>
     <p>Helping Peers Reconnect with Their Belongings</p>
@@ -36,27 +35,26 @@
         </form>
     </div>
 
-    <!-- Filter Buttons -->
+    <!-- Filters -->
     <div class="filter-box">
-        <button class="filter-btn active" id="allFilter" onclick="filterItems('All', this)">All</button>
-        <button class="filter-btn" onclick="filterItems('Lost', this)">Lost</button>
-        <button class="filter-btn" onclick="filterItems('Found', this)">Found</button>
+        <button class="filter-btn active" id="allFilter" onclick="setFilter('All', this)">All</button>
+        <button class="filter-btn" onclick="setFilter('Lost', this)">Lost</button>
+        <button class="filter-btn" onclick="setFilter('Found', this)">Found</button>
     </div>
 
-    <!-- Search Bar -->
+    <!-- Search -->
     <div class="search-box">
         <div class="search-wrapper">
             <input type="text" id="searchBox" placeholder="Search item..."
-                   onkeyup="searchItem(); toggleClearBtn()">
+                   onkeyup="handleSearch(); toggleClearBtn()">
             <span class="clear-btn" id="clearBtn" onclick="clearSearch()">×</span>
         </div>
     </div>
 
-    <!-- Results Area -->
+    <!-- Results -->
     <div class="items" id="result"></div>
 </div>
 
-<!-- Footer -->
 <footer class="footer">
     &copy; Developed by Kannuru Erimiya
 </footer>
