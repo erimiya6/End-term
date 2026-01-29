@@ -1,0 +1,176 @@
+/* Basic reset */
+* {
+    box-sizing: border-box;
+}
+
+/* Page background and font */
+body {
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #eef2ff, #f9fafb);
+    margin: 0;
+    color: #333;
+}
+
+/* Header */
+.main-header {
+    background: linear-gradient(90deg, #2563eb, #1d4ed8);
+    color: white;
+    padding: 30px 10px;
+    text-align: center;
+}
+
+/* Main container */
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 25px;
+}
+
+/* Toggle & Filter buttons layout */
+.top-toggle,
+.filter-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+/* All buttons basic style */
+.type-toggle button,
+.filter-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background: #e5e7eb;
+    font-size: 14px;
+}
+
+/* Active (blue) buttons */
+.type-toggle button.active,
+.filter-btn.active {
+    background: #2563eb;
+    color: white;
+}
+
+/* Form card */
+.form-box {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+}
+
+/* Input fields */
+input,
+textarea,
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+}
+
+/* Disabled submit button */
+#submitBtn:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+}
+
+/* Active submit button */
+#submitBtn.active {
+    background: #2563eb;
+    color: white;
+}
+
+/* Search bar with clear icon */
+.search-wrapper {
+    position: relative;
+}
+
+.search-wrapper input {
+    padding-right: 35px;
+}
+
+.clear-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #9ca3af;
+    display: none;
+}
+
+.clear-btn:hover {
+    color: #ef4444;
+}
+
+/* Items grid */
+.items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+}
+
+/* Item card */
+.card {
+    background: white;
+    padding: 18px;
+    border-radius: 14px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+/* Lost & Found colors */
+.lost {
+    border-left: 6px solid #ef4444;
+}
+
+.found {
+    border-left: 6px solid #22c55e;
+}
+
+/* Tag labels */
+.tag {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    color: white;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+.tag.lost {
+    background: #ef4444;
+}
+
+.tag.found {
+    background: #22c55e;
+}
+
+/* Delete button */
+.delete-btn {
+    background: #dc2626;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: #b91c1c;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 15px;
+    background: #1d4ed8;
+    color: white;
+    margin-top: 30px;
+}
