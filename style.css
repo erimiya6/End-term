@@ -34,7 +34,6 @@ body {
     border-radius: 20px;
     background: #e5e7eb;
     cursor: pointer;
-    transition: 0.2s;
 }
 
 .type-toggle button.active,
@@ -84,8 +83,8 @@ input, textarea, button {
     transform: translateY(-50%);
     cursor: pointer;
     display: none;
-    color: #9ca3af;
     font-size: 18px;
+    color: #9ca3af;
 }
 
 .items {
